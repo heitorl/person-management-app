@@ -2,6 +2,6 @@
  * estado controller
  */
 
-import { factories } from '@strapi/strapi'
+import { factories } from "@strapi/strapi";
 
-export default factories.createCoreController('api::estado.estado');
+export default factories.createCoreController("api::estado.estado");
