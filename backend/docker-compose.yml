@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_strapi
+    environment:
+      MYSQL_ROOT_PASSWORD: senha
+      MYSQL_DATABASE: strapi
+      MYSQL_USER: usuario
+      MYSQL_PASSWORD: senha
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - my_network
+
+volumes:
+  db_data:
+
+networks:
+  my_network:
+    driver: bridge

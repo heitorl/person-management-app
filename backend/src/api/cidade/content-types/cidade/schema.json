@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cidades",
+  "info": {
+    "singularName": "cidade",
+    "pluralName": "cidades",
+    "displayName": "Cidade",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "estado": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::estado.estado",
+      "inversedBy": "cidades"
+    }
+  }
+}
