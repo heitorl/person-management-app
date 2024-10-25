@@ -429,6 +429,39 @@ export interface ApiEstadoEstado extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPessoaPessoa extends Struct.CollectionTypeSchema {
+  collectionName: 'pessoas';
+  info: {
+    displayName: 'Pessoa';
+    pluralName: 'pessoas';
+    singularName: 'pessoa';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cidade: Schema.Attribute.Relation<'oneToOne', 'api::cidade.cidade'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    estado: Schema.Attribute.Relation<'oneToOne', 'api::estado.estado'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pessoa.pessoa'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -936,6 +969,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::cidade.cidade': ApiCidadeCidade;
       'api::estado.estado': ApiEstadoEstado;
+      'api::pessoa.pessoa': ApiPessoaPessoa;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
