@@ -5,6 +5,7 @@ import { api } from "../api";
 
 export const createPersonAction = async (data: Person) => {
   const { nome, email, cidade, estado } = data;
+  
   try {
     //await new Promise((resolve) => setTimeout(resolve, 2000));
     const { data: state } = await createState(estado);
