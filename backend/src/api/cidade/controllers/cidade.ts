@@ -3,6 +3,7 @@
  */
 
 import { factories } from "@strapi/strapi";
+import axios from "axios";
 
 export default factories.createCoreController(
   "api::cidade.cidade",
@@ -10,10 +11,10 @@ export default factories.createCoreController(
     async find(ctx) {
       const state = ctx.request.headers["estado"];
       if (state) {
-        const response = await fetch(
+        const response = await axios.get(
           `http://educacao.dadosabertosbr.org/api/cidades/${state}`
         );
-        const citiesData = (await response.json()) as string[];
+        const citiesData = response.data;
 
         const cities = citiesData.map((city) => city.split(":")[1]);
 
