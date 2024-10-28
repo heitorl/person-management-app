@@ -1,1 +1,0 @@
-# person-management-app
