@@ -1,61 +1,140 @@
-# 🚀 Getting started with Strapi
+# PERSON MANAGMENT APP
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+Este documento descreve o backend desenvolvido em Strapi para gerenciar os dados da aplicação. Inclui instruções sobre como configurar, utilizar os endpoints
 
-### `develop`
+## Configuração do Projeto
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+### Instale as dependências
+npm install
 
-```
+### Configure as variáveis de ambiente em um arquivo .env, incluindo as credenciais do banco de dados
+
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_NAME=nome_do_banco
+DATABASE_USERNAME=usuario
+DATABASE_PASSWORD=senha
+
+
+### Inicie o servidor de desenvolvimento:
 npm run develop
-# or
-yarn develop
-```
-
-### `start`
-
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
-
-```
-npm run start
-# or
-yarn start
-```
-
-### `build`
-
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
-
-```
-npm run build
-# or
-yarn build
-```
-
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
-```
-yarn strapi deploy
-```
-
-## 📚 Learn more
-
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
-
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
-
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
 
 ---
 
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+## Endpoints da API
+
+
+## Listagem dos estados
+
+## GET /api/estados-selecao - Rota responsável pela Busca de Estados
+
+#### Corpo da resposta - STATUS CODE 200 
+
+```json
+[
+	{
+		"nome": "Acre",
+		"sigla": "AC"
+	},
+	{
+		"nome": "Alagoas",
+		"sigla": "AL"
+	},
+	...
+}
+```
+## Listagem dos estados
+
+## GET /api/cidades - Rota responsável pela Busca de cidades
+Header - estado: rj
+
+
+
+#### Corpo da resposta - STATUS CODE 200 
+```json
+[
+	"ANGRA DOS REIS",
+	"APERIBE",
+	"ARARUAMA",
+	"AREAL",
+    .
+    .
+    .
+]
+```
+
+---
+
+# PROBLEMAS QUE TIVE QUE LIDAR
+
+### Ao adcionar o auth=false na routes como diz a documentação para tornar a rota publica
+export default  factories.createCoreRouter('api::restaurant.restaurant', {
+  config: {
+    create: {
+      auth: false
+    }
+  }
+});
+
+
+#### POST /api/cidades
+
+#### Corpo da requisição:
+
+```json
+{
+	"data": {
+		"nome": "rio de janeiro",
+		"estado": 1		
+	}
+}
+```
+
+#### Corpo da resposta - STATUS CODE 400 
+
+```json
+{
+	"data": null,
+	"error": {
+		"status": 400,
+		"name": "ValidationError",
+		"message": "Invalid key estado",
+		"details": {
+			"key": "estado",
+			"path": "estado",
+			"source": "body"
+		}
+	}
+}
+```
+
+### No entanto seguindo por liberar a rota pelo painel da interface web tudo da certo
+
+#### POST /api/cidades
+
+#### Corpo da requisição:
+
+```json
+{
+	"data": {
+		"nome": "rio de janeiro",
+		"estado": 1		
+	}
+}
+```
+#### Corpo da resposta - STATUS CODE 201 - CREATED:
+
+```json
+{
+	"data": {
+		"id": 2,
+		"documentId": "xid1xtdvpdoftpeor8yo5mj3",
+		"nome": "rio de janeiro",
+		"createdAt": "2024-10-28T19:45:08.207Z",
+		"updatedAt": "2024-10-28T19:45:08.207Z",
+		"publishedAt": "2024-10-28T19:45:08.198Z"
+	},
+	"meta": {}
+}
+```
+

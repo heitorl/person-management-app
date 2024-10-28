@@ -15,6 +15,7 @@ export default factories.createCoreController(
           `http://educacao.dadosabertosbr.org/api/cidades/${state}`
         );
         const citiesData = response.data;
+        console.log(citiesData)
 
         const cities = citiesData.map((city) => city.split(":")[1]);
 
